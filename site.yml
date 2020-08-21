@@ -1,0 +1,12 @@
+- hosts: all
+  become: true
+  gather_facts: true
+  
+  roles: 
+    - firewall 
+    - oci-hostname
+    - etc-hosts
+    - ssh
+    - localdisk
+
+      

@@ -1,0 +1,27 @@
+---
+- name: Install nfs packages
+  yum:
+    name: '{{ nfs_packages }}'
+    state: present
+  tags: install-only
+
+- name: create share directory
+  file:
+    path: "{{ export_path }}"
+    state: directory
+    owner: opc
+    group: opc
+
+- name: create local storage directory
+  file: 
+    path: "{{ exported_path }}"
+    state: directory
+    owner: opc
+    group: opc
+
+- name: create exports file
+  register: nfs_config
+  notify: restart_nfs
+  template:
+      src: exports.j2
+      dest: "/etc/exports.d/{{ export_name }}"

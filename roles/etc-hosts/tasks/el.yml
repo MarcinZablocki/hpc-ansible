@@ -1,0 +1,18 @@
+---
+- name: create temporary /etc/hosts file
+  blockinfile:
+    dest: /tmp/hosts.etc
+    content: "{{ lookup('template', 'templates/etc-hosts.j2') }}"
+    state: present
+    create: yes
+  delegate_to: 127.0.0.1
+  run_once: true
+
+- name: create /etc/hosts on all servers
+  become: true
+  blockinfile:
+    dest: /etc/hosts
+    content: "{{ lookup('file', '/tmp/hosts.etc') }}"
+    state: present
+  async: 30
+  poll: 1
