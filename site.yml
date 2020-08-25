@@ -8,6 +8,7 @@
     - etc-hosts
     - ssh
     - localdisk
+    - mpi-hostfiles
 
 - hosts: bastion
   become: true
@@ -54,4 +55,3 @@
 
   roles:
     - rdma-interface
-
