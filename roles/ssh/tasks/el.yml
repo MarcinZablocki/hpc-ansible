@@ -13,7 +13,7 @@
     src: '/home/opc/.ssh/{{ item }}'
     owner: 'opc'
     group: 'opc'
-    mode: '0644'
+    mode: '0600'
   with_items:
     - id_rsa
 

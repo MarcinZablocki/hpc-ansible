@@ -13,7 +13,7 @@
   when: "'nvme0n1' in hostvars[inventory_hostname].ansible_devices"
 - name: Mount local volume
   mount:
-    path: /mnt/localdisk/
+    path: /scratch
     src: /dev/nvme0n1p1
     fstype: xfs
     opts: defaults,noatime
