@@ -1,9 +1,6 @@
 ---
-- name: Install nfs packages
-  yum:
-    name: '{{ nfs_packages }}'
-    state: present
-  tags: install-only
+- name: Ensure NFS utilities are installed.
+  package: name=nfs-utils state=present
 
 - name: Start NFS server
   service: 
@@ -11,12 +8,11 @@
     state: started
     enabled: true
 
-- name: create share directory
-  file:
-    path: "{{ export_path }}"
-    state: directory
-    owner: opc
-    group: opc
+- name: Ensure rpcbind is running as configured.
+  service:
+    name: rpcbind
+    state: "{{ nfs_rpcbind_state }}"
+    enabled: "{{ nfs_rpcbind_enabled }}"
 
 - name: create local storage directory
   file: 

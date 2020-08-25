@@ -1,2 +1,11 @@
-{{ local_path }} {{ public_subnet }}(rw,sync,no_root_squash,no_all_squash,no_subtree_check,insecure_locks)
-{{ local_path }} {{ private_subnet }}(rw,sync,no_root_squash,no_all_squash,no_subtree_check,insecure_locks)
+{% if public_subnet is not defined %}
+{% set address = ansible_default_ipv4.network %}
+{% set mask = ansible_default_ipv4.netmask %}
+{% set network = address + '/' + mask %}
+{% set public_subnet = network | ipaddr('net') %}
+{% endif %}
+
+{{ local_path }} {{ public_subnet }}({{ nfs_options }})
+{% if private_subnet is defined %}
+{{ local_path }} {{ private_subnet }}({{ nfs_options }})
+{% endif %}
