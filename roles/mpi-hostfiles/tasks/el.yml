@@ -33,11 +33,11 @@
 - name: delete /tmp/hostfile.tcp
   file: 
     path: /tmp/hostfile.tcp
-    state: asbent 
+    state: absent 
 
 - name: delete /tmp/hostfile.rdma
   file: 
     path: /tmp/hostfile.rdma
-    state: asbent 
+    state: absent 
 
 
